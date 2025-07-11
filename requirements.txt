@@ -1,0 +1,21 @@
+# Core dependencies
+typing-extensions>=4.0.0
+dataclasses-json>=0.5.0
+pydantic>=2.0.0
+
+# For natural language processing and pattern matching
+regex>=2022.0.0
+
+# For mathematical expression parsing
+sympy>=1.10.0
+
+# For data structures and utilities
+numpy>=1.21.0
+
+# For testing
+pytest>=7.0.0
+pytest-cov>=4.0.0
+
+# For development
+black>=22.0.0
+flake8>=5.0.0 
