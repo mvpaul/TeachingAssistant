@@ -121,13 +121,23 @@ src/
 
 ### Environment Variables
 
-Create a `.env` file in the root directory:
+Copy `.env.example` to `.env` in the project root and fill in your Anthropic API key:
 
 ```env
-VITE_API_ENDPOINT=http://localhost:8000/api
-VITE_AI_MODEL=gpt-4o
-VITE_MAX_TOKENS=1000
-VITE_TEMPERATURE=0.7
+# Backend (FastAPI)
+ANTHROPIC_API_KEY=your-api-key-here
+CLAUDE_MODEL=claude-opus-5
+FRONTEND_ORIGIN=http://localhost:3000
+
+# Frontend (Vite)
+VITE_API_ENDPOINT=http://localhost:8000/api/ai
+```
+
+The model call happens server-side in `backend/main.py` - the API key never reaches the browser. Start the backend with:
+
+```bash
+pip install -r requirements.txt
+uvicorn backend.main:app --reload --port 8000
 ```
 
 ### Customization

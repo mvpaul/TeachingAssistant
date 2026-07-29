@@ -10,10 +10,7 @@ import { sessionTracker } from '../utils/sessionTracker.js'
 export class AIEngine {
   constructor(config = {}) {
     this.config = {
-      apiEndpoint: config.apiEndpoint || '/api/ai',
-      model: config.model || 'gpt-4o',
-      maxTokens: config.maxTokens || 1000,
-      temperature: config.temperature || 0.7,
+      apiEndpoint: config.apiEndpoint || import.meta.env.VITE_API_ENDPOINT || 'http://localhost:8000/api/ai',
       ...config
     }
     
@@ -167,26 +164,14 @@ export class AIEngine {
    * @returns {Promise<Object>} AI response
    */
   async callAI(payload) {
-    // For now, return null to use local processing
-    // In production, this would make actual API calls
-    return null
-
-    // Example implementation for when API is available:
-    /*
     for (let attempt = 0; attempt < this.maxRetries; attempt++) {
       try {
         const response = await fetch(this.config.apiEndpoint, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${this.config.apiKey}`
+            'Content-Type': 'application/json'
           },
-          body: JSON.stringify({
-            model: this.config.model,
-            max_tokens: this.config.maxTokens,
-            temperature: this.config.temperature,
-            ...payload
-          })
+          body: JSON.stringify(payload)
         })
 
         if (!response.ok) {
@@ -200,16 +185,16 @@ export class AIEngine {
       } catch (error) {
         this.retryCount = attempt + 1
         console.warn(`AI API attempt ${attempt + 1} failed:`, error)
-        
+
         if (attempt === this.maxRetries - 1) {
-          throw error
+          // Fall back to local-only processing rather than surfacing an error
+          return null
         }
-        
+
         // Wait before retrying
         await new Promise(resolve => setTimeout(resolve, 1000 * (attempt + 1)))
       }
     }
-    */
   }
 
   /**
