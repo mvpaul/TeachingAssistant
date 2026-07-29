@@ -3,3 +3,11 @@ __pycache__/
 *.pyc
 .env
 
+# iOS - project.yml is the source of truth (XcodeGen); the generated
+# .xcodeproj and build artifacts should not be committed.
+ios/*.xcodeproj
+ios/DerivedData
+ios/.build
+*.xcuserstate
+*.p8
+
